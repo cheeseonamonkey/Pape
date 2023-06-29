@@ -1,4 +1,4 @@
-run = "node server.js"
+run = "npm start"
 entrypoint = "server.js"
 hidden = [".config", "package-lock.json"]
 
