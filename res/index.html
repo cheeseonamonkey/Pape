@@ -33,6 +33,7 @@
  <p>Here's a couple randomly-selected images from the gallery:</p>
   <style>
     .gallerySample {
+        margin: 2px;
       font-size: 2px;
       color: #edf;
       background-color: #102;
@@ -42,11 +43,27 @@
 
     }
   </style>
+    
+<button id="randomFromGallery">(new randoms from the gallery)</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span>size:</span>
+    <input type="range" min="0.5" step="0.5" max="5" value="1"
+        id="font-size-range" oninput="document.getElementById('gallerySample1').style.fontSize = this.value + 'px';document.getElementById('gallerySample2').style.fontSize = this.value + 'px';">
+    <br>
+    
+    <span>fg color:</span>
+    <input type="color" value="#e0d0f0"
+oninput="document.getElementById('gallerySample1').style.color = this.value; document.getElementById('gallerySample2').style.backgroundColor = this.value;">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span>bg color:</span>
+    <input type="color" value="#100020"
+oninput="document.getElementById('gallerySample1').style.backgroundColor = this.value; document.getElementById('gallerySample2').style.backgroundColor = this.value;"     />
 
+    <br>
   <div style="float: left;" id="gallerySample1" class="gallerySample"></div>
   <div style="float: left;" id="gallerySample2" class="gallerySample"></div>
-  <br><br>
-  <button id="randomFromGallery">(random from gallery)</button>
+  <br clear="both"><br>
+  
   <script>
 
     function setRandomGalleryImages() {
