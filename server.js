@@ -18,7 +18,9 @@ const sqlite = require('better-sqlite3');
 const db = sqlite('foobar.db');
 db.pragma('journal_mode = WAL');
 
-
+function sanitizeForSQL(input) {
+  return input.replace(/'/g, "''").replace(/"/g, '""');
+}
 function decompressImageData(images) {
 
   for (let i = 0; i < images.length; i++) {
@@ -78,7 +80,7 @@ app.post('/submit', upload.single('imageData'), async function (req, res) {
   try {
     //image data:
     const imageData = req.file.buffer;
-    const title = req.body.title;
+    const title = sanitizeForSQL(req.body.title);
     console.log(bufferToPath(imageData))
     const imageBraille = await toBrailleImg(bufferToPath(imageData), 250)
     console.log("\nBRAILLE IMAGE: \n" + imageBraille.slice(0, 1800) + "\n")
