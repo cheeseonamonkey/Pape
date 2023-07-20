@@ -1,219 +1,153 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Image Gallery</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex's Wallpaper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Add your custom CSS styles here */
+    body {
+      font-family: 'Rubik', sans-serif;
+      margin: 0;
+      padding: 0;
+        font-size: 110%;
+    }
+
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+      input {
+           width: 95%;
+      padding: 7px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+  }
+    .form-group input[type="file"] {
+      width: 95%;
+      padding: 9px;
+      font-size: 17px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .form-group button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background-color: #007bff;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .form-group button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: 700;
+    }
   </style>
-  <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
 </head>
-
 <body>
-  
+  <div class="container">
+    <h1 style="margin-block-end: 0.2em;margin-block-start: 0.2em;">Set Alex's Wallpaper</h1>
+<small>The uploaded image will be set as Alex's phone wallpaper.<br/></small>
+      <br/>
 
-  
-   
-  <div id="gallery">
-    <!-- Display the approved images here -->
+
+      <br/>            <br/>
+
+
+    <div class="form-group">
+      <label for="filImage">Select an image:</label>
+      <input type="file" id="filImage" accept="image/*">
+        <br/> 
+              <label for="txtNickname">your nickname:</label>
+         
+
+        <input type="text" id="txtNickname">
+         <br/> 
+    </div>
+    <div class="form-group">
+      <button id="submitBtn">Submit</button>
+    </div>
+    <div class="message" id="message"></div>
   </div>
 
-  <h2>Submit Image</h2>
-  <form id="submitForm" action="/submit" method="POST" enctype="multipart/form-data">
-    <input type="file" id="filImageUpload" name="image" accept="image/*" required>
-    <input type="text" id="txtImageTitle" name="title" placeholder="Image title" required>
-    <input type="submit" value="Submit">
-  </form>
-
-  <br>
-
-  <h2>From Gallery:</h2>
-
- <p>Here's a couple randomly-selected images from the gallery:</p>
-  <style>
-    .gallerySample {
-        margin: 2px;
-      font-size: 2px;
-      color: #edf;
-      background-color: #102;
-      padding: 5px;
-      white-space: nowrap;
-      display: inline-block;
-
-    }
-  </style>
-    
-<button id="randomFromGallery">(new randoms from the gallery)</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <span>size:</span>
-    <input type="range" min="0.5" step="0.5" max="5" value="1"
-        id="font-size-range" oninput="document.getElementById('gallerySample1').style.fontSize = this.value + 'px';document.getElementById('gallerySample2').style.fontSize = this.value + 'px';">
-    <br>
-    
-    <span>fg color:</span>
-    <input type="color" value="#e0d0f0"
-oninput="document.getElementById('gallerySample1').style.color = this.value; document.getElementById('gallerySample2').style.backgroundColor = this.value;">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <span>bg color:</span>
-    <input type="color" value="#100020"
-oninput="document.getElementById('gallerySample1').style.backgroundColor = this.value; document.getElementById('gallerySample2').style.backgroundColor = this.value;"     />
+    <br><br><br><hr style="margin: 0;">
+    <small style="margin-left: -10px; position: relative; top: -20px; font-size: 50%;"><br>Your IP has been logged! </small>
 
     <br>
-  <div style="float: left;" id="gallerySample1" class="gallerySample"></div>
-  <div style="float: left;" id="gallerySample2" class="gallerySample"></div>
-  <br clear="both"><br>
+    
+<small style="margin-left: -10px;font-size: 50%;"><br>UserAgent: </small><br><span style="overflow: hidden; text-overflow: clip; display: inline; width: 10%;  font-size: 50%;font-weight: bold; font-family: unset; " id="ua"></span>
+</li><small style="margin-left: -10px;font-size: 50%"><br>Platform: </small><br><span style="overflow: hidden; text-overflow: clip; white-space: nowrap; font-size: 50%;font-weight: bold; font-family: unset; " id="pl"></span>
+<script>
+    
+    
+    ua.innerHTML = navigator.userAgent;
+    pl.innerHTML = navigator.platform;
+    
+</script>
+
+
+    
+<script>
+
+
+submitBtn.addEventListener('click', evn=>{
+   const fileInput = document.getElementById('filImage');
+const textInput = document.getElementById('txtNickname');
+
+const formData = new FormData();
+formData.append('uploadNickname', textInput.value);
+formData.append('imageData', fileInput.files[0]);
+
+fetch('https://papeapi.ffatty.repl.co/img', {
+  method: 'POST',
+  body: formData
+})
+  .then(response => {
+      if(response.status === 200){
+      
+  message.textContent = 'Image submitted successfully!';
+          message.style.color = 'green';
+      console.log(data);
+}else{
+          message.textContent = 'Error Submitting Image :(';
+          message.style.color = 'red'; 
+}
+          
+  })
   
-  <script>
-
-    function setRandomGalleryImages() {
-      fetch('/gallery/all')
-        .then(response => response.json())
-        .then(data => {
-
-          function getRandomInt(min, max) { return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min; }
-
-          let rng;
-
+ //message.textContent = 'Failed to upload the image.';
+  //message.style.color = 'red';
+      //console.error(error);
+  
+ 
+});
     
-          rng = getRandomInt(0, data.length - 1)
-          gallerySample1.innerText = gallerySample1.innerText + "\n\n\n---------------------------------------------------------------------------------------------------\n\n\n" + `${data[rng].imageDecompressed}`
-
-          rng = getRandomInt(0, data.length - 1)
-          gallerySample2.innerText = gallerySample2.innerText + "\n\n\n---------------------------------------------------------------------------------------------------\n\n\n" + `${data[rng].imageDecompressed}`
-
-
-
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-    setRandomGalleryImages();
-          setRandomGalleryImages();
-          setRandomGalleryImages();
-    randomFromGallery.addEventListener("click", (event => setRandomGalleryImages()))
-  </script>
-
-  <br><br>
-
-
-  <!--
-  <form id="moderate-form" action="/moderate" method="POST">
-    <input type="hidden" name="imageId" value="">
-    <div id="moderate-image">
-
-    </div>
-    <div>
-      <button id="approve-button" type="submit" name="action" value="approve">Approve</button>
-      <button id="deny-button" type="submit" name="action" value="deny">Deny</button>
-    </div>
-  </form>
-
--->
-
-
-
-
-
-
-
-
-
-  <script>
-
-
-
-
-
-    function readFileSyncAsBytes(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = function () {
-          const arrayBuffer = reader.result;
-          const bytes = new Uint8Array(arrayBuffer);
-          resolve(bytes);
-        }
-        reader.onerror = function () {
-          console.error('Error reading file.');
-          reject(null);
-        }
-      });
-    }
-
-
-    submitForm.addEventListener('submit', async (event) => {
-      // stops default page navigation
-      event.preventDefault();
-
-      // uploaded image file
-      const fil = filImageUpload.files[0];
-      console.log("fil:");
-      console.log(fil);
-
-
-
-      let imageData = await readFileSyncAsBytes(fil);
-      console.log("imageData:");
-      console.log(imageData);
-
-
-      // compress imgData
-      imageData =
-        await readFileSyncAsBytes(
-          await imageCompression(
-            fil,
-            {
-              maxSizeMB: 0.15,
-              maxWidthOrHeight: 800,
-              //fileType: "image/jpg"
-            }
-          )
-        );
-      console.log("imageData (compressed):");
-      console.log(imageData);
-
-      const image64 = btoa(String.fromCharCode.apply(null, imageData));
-      console.log("imageData (base64):");
-      console.log(image64);
-
-
-
-      const imgTitle = txtImageTitle.value;
-      console.log("imgTitle:");
-      console.log(imgTitle);
-
-      const formData = new FormData();
-      formData.append('imageData', fil);
-      formData.append('title', imgTitle);
-
-      const submitImage = async () => {
-
-
-        try {
-          const response = await fetch('/submit', {
-            method: 'POST',
-            body: formData
-          });
-
-          if (response.ok) {
-            console.log('Image submitted successfully!');
-          } else {
-            console.log('Failed to submit image.');
-          }
-        } catch (error) {
-          console.error('An error occurred:', error);
-        }
-      };
-
-      submitImage();
-
-    });
-
-  </script>
-
-
+</script>
+    
 </body>
-
 </html>
