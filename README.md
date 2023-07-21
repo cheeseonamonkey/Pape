@@ -1,6 +1,6 @@
 # **Pape**
 ###### <sup>(repo formerly DoodleDrop)</sup>
-Let people anonymously set my phone's wallpaper *(this can't go wrong!)*.
+Let people anonymously set my phone's wallpaper <sup>*(this can't go wrong!)*</sup>. 
 
 ---
 
