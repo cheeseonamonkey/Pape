@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pape Queue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+      margin: 0;
+      padding: 0;
+        font-size: 110%;
+    }
+
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+      input {
+           width: 95%;
+      padding: 7px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+  }
+    .form-group input[type="file"] {
+      width: 95%;
+      padding: 9px;
+      font-size: 17px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .form-group button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background-color: #007bff;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .form-group button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .message {
+        font-size: 100%;
+        margin: 10px;
+        margin-left: 20px;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="margin-block-end: 0.2em;margin-block-start: 0.2em;">Pape Queue</h1>
+<small>All uploaded images currently in the database.<br/></small>
+   
+      
+      <div id="divQueue" style=" min-height: 50%; display:inline-block; overflow-y: scroll;">
+
+       
+
+       
+   </div>
+<br><br>
+
+    <div class="message" id="message"></div>
+  
+    <br>   <br>   <br>    <br><hr style="margin: 0; margin-top: 20px;">
+
+    
+    
+<script>
+    message.style.color = "gray";
+    message.innerText = "Getting images..."
+
+
+
+    async function getImageByIndex(index) {
+    try {
+        const response = await fetch(`/img/${index}`);
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const image = document.createElement('img');
+            image.style.width = '45%';
+            image.style.height = "auto"
+            image.src = url;
+            document.body.appendChild(image);
+        } else {
+            console.log('Error:', response.status);
+        }
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+    for(let i=0; i<=9; i++){
+        
+            getImageByIndex(i);
+        
+    }
+
+
+
+
+    
+    
+</script>
+    
+</body>
+</html>
