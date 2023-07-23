@@ -30,7 +30,6 @@ app.get('/queue', function(req, res) {
 
 
 
-
 // Endpoint for uploading an image and inserting it into the database
 app.post('/img', upload.single('imageData'), (req, res) => {
     try {
@@ -42,7 +41,7 @@ app.post('/img', upload.single('imageData'), (req, res) => {
         const { buffer, originalname } = req.file;
         const uploadNickname = req.body.uploadNickname;
         const userstmt = db.prepare(`INSERT INTO Users (userAgent, ip) values ('${req.ip}', '${req.user_agent}')`).run();
-        const userId = db.prepare(`SELECT last_insert_rowid() as 'lastID' `).all()[0].lastID; //get logId from another query
+        const userId = db.prepare(`SELECT last_insert_rowid() as 'lastID' `).all()[0].lastID; // get last inserted
         // console.log(userId)
 
         const stmt = db.prepare('INSERT INTO Images (imageData, uploadNickname, userId) VALUES (?, ?, ?)');
@@ -55,6 +54,7 @@ app.post('/img', upload.single('imageData'), (req, res) => {
         console.error("Error in POST /img:", ex)
     }
 });
+
 
 
 
@@ -106,6 +106,14 @@ app.get('/img/:n', (req, res) => {
     } else {
         res.status(400).send('Invalid image index');
     }
+});
+
+
+
+
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
 
 

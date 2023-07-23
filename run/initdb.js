@@ -1,4 +1,5 @@
 
+
 async function main() {
     try {
 
@@ -54,14 +55,14 @@ CREATE TRIGGER delete_oldest_images
 after INSERT ON Images
 BEGIN
 
-      DELETE FROM Images
-        WHERE id IN (
-            SELECT id
-            FROM Images
-            ORDER BY dateTime asc
-            LIMIT 1
-        );
-        
+  DELETE FROM Images
+    WHERE id NOT IN (
+        SELECT id
+        FROM Images
+        ORDER BY dateTime DESC
+        LIMIT 6
+    );
+            
 END;`)
 
 
@@ -72,11 +73,9 @@ END;`)
             console.log(result)
         });
 
-        console.log("\n\n\n----------\n\nsql finished:\n")
-        //console.log("\nimages:")
-        //console.log(db.prepare("select * from Images;").all());
-        //console.log("\nusers:")
-        //console.log(db.prepare("select * from Users;").all());
+        console.log("\n\n\n\n----------\n\n schema finished:\n\n")
+        console.log("\nschema:\n")
+        console.log(db.prepare(".schema").all());
         console.log("\ndatabase reset!\n")
 
 
@@ -90,14 +89,12 @@ END;`)
 }
 
 
-function warning() {
-    console.log("Warning! Data destruction.")
 
-    return true; // TRUE to enable destruction!!! :)
-}
 
-if (warning())
-    main()
+
+
+
+main()
 
 
 
